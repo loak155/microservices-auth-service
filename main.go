@@ -1,10 +1,6 @@
 package main
 
 import (
-	"auth-service/client"
-	"auth-service/router"
-	"auth-service/usecase"
-	"auth-service/utils"
 	"context"
 	"fmt"
 	"log"
@@ -16,6 +12,10 @@ import (
 	"time"
 
 	"github.com/joho/godotenv"
+	"github.com/loak155/microservices-auth-service/client"
+	"github.com/loak155/microservices-auth-service/router"
+	"github.com/loak155/microservices-auth-service/usecase"
+	"github.com/loak155/microservices-auth-service/utils"
 	"google.golang.org/grpc"
 )
 
