@@ -2,7 +2,6 @@ package usecase
 
 import (
 	"fmt"
-	"os"
 
 	"github.com/loak155/microservices-auth-service/client"
 	"github.com/loak155/microservices-auth-service/utils"
@@ -21,7 +20,7 @@ type authUsecase struct {
 }
 
 func NewAuthUsecase(uc client.IUserGRPCClient, jwtManager utils.JwtManager) IAuthUsecase {
-	return &authUsecase{uc, jwtManager}
+	return &authUsecase{uc, &jwtManager}
 }
 
 func (uu *authUsecase) GenerateToken(user_id int) (string, error) {
@@ -36,11 +35,7 @@ func (uu *authUsecase) GenerateToken(user_id int) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	tokenString, err := token.SignedString([]byte(os.Getenv("SECRET_KEY")))
-	if err != nil {
-		return "", err
-	}
-	return tokenString, nil
+	return token, nil
 }
 
 func (uu *authUsecase) ValidateToken(token string) (bool, error) {
@@ -60,9 +55,5 @@ func (uu *authUsecase) RefreshToken(token string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	refreshTokenString, err := refreshToken.SignedString([]byte(os.Getenv("SECRET_KEY")))
-	if err != nil {
-		return "", err
-	}
-	return refreshTokenString, nil
+	return refreshToken, nil
 }

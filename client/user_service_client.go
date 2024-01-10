@@ -1,6 +1,7 @@
 package client
 
 import (
+	"context"
 	"fmt"
 	"os"
 
@@ -10,7 +11,7 @@ import (
 )
 
 type IUserGRPCClient interface {
-	GetUser(req *pb.GetUserRequest) (*pb.getUserResponse, error)
+	GetUser(req *pb.GetUserRequest) (*pb.GetUserResponse, error)
 }
 
 type userGRPCClient struct {
@@ -32,8 +33,8 @@ func NewUserGRPCClient() (IUserGRPCClient, error) {
 	return &userGRPCClient{client}, nil
 }
 
-func (c *userGRPCClient) GetUser(req *pb.GetUserRequest) (*pb.getUserResponse, error) {
-	res, err := c.client.GetUser(req)
+func (c *userGRPCClient) GetUser(req *pb.GetUserRequest) (*pb.GetUserResponse, error) {
+	res, err := c.client.GetUser(context.Background(), req)
 	if err != nil {
 		return nil, err
 	}

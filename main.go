@@ -37,8 +37,12 @@ func main() {
 	}()
 
 	userGRPCClient, err := client.NewUserGRPCClient()
+	if err != nil {
+		slog.Error("failed to connect to user service")
+		cancel()
+	}
 	jwtManager := utils.NewJwtManager(os.Getenv("SECRET_KEY"), time.Hour*12)
-	authUsecase := usecase.NewAuthUsecase(userGRPCClient, jwtManager)
+	authUsecase := usecase.NewAuthUsecase(userGRPCClient, *jwtManager)
 	router.NewAuthGRPCServer(server, authUsecase)
 
 	listener, err := net.Listen("tcp", fmt.Sprintf("%s:%s", os.Getenv("HOST"), os.Getenv("PORT")))

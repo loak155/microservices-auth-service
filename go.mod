@@ -5,7 +5,7 @@ go 1.21.5
 require (
 	github.com/golang-jwt/jwt/v4 v4.5.0
 	github.com/joho/godotenv v1.5.1
-	github.com/loak155/microservices-proto v0.0.0-20240108140328-202ae3d96898
+	github.com/loak155/microservices-proto v0.0.0-20240108145752-abe024e976c8
 	google.golang.org/grpc v1.60.1
 )
 
